@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#17365e" />
+  <title>כלי עזר במספרים מכוונים | Prismind</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <img src="assets/prisma-logo.png" alt="Prismind" />
+      </div>
+
+      <div class="header-title">
+        <h1>כלי עזר במספרים מכוונים</h1>
+        <p>בוחרים נקודת התחלה, נעים על הציר ורואים את החיבור והחיסור</p>
+      </div>
+
+      <div class="header-actions" aria-label="פעולות">
+        <button class="icon-btn" id="resetBtn" type="button" aria-label="איפוס" title="איפוס">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10.5V20h13v-9.5M9.5 20v-6h5v6"/></svg>
+        </button>
+        <button class="icon-btn" id="helpBtn" type="button" aria-label="עזרה" title="עזרה">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.1 9a3 3 0 1 1 5.7 1.3c-.8 1.2-2.3 1.5-2.7 2.7v.5M12 18h.01"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="controls-card card" aria-label="הגדרות הכלי">
+        <div class="control-group">
+          <span class="control-label">טווח</span>
+          <div class="segmented" id="rangeButtons" role="group" aria-label="בחירת טווח">
+            <button type="button" data-range="10" class="active">10</button>
+            <button type="button" data-range="15">15</button>
+            <button type="button" data-range="20">20</button>
+            <button type="button" data-range="25">25</button>
+          </div>
+          <span class="control-note" id="rangeNote">מ־−10 עד 10</span>
+        </div>
+
+        <div class="control-group orientation-group">
+          <span class="control-label">תצוגה</span>
+          <button class="orientation-btn" id="orientationBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M16 8l4 4-4 4M8 4v16M4 8l4-4 4 4"/></svg>
+            <span id="orientationText">עבור לציר אופקי</span>
+          </button>
+          <span class="control-note">בכל רגע מוצגת תצוגה אחת בלבד</span>
+        </div>
+      </section>
+
+      <section class="tool-layout">
+        <aside class="status-card card" aria-live="polite">
+          <span class="eyebrow">המיקום הנוכחי</span>
+          <strong id="currentValue">0</strong>
+
+          <div class="start-box">
+            <div>
+              <span class="start-label">נקודת ההתחלה</span>
+              <strong id="startValue">0</strong>
+            </div>
+            <button class="set-start-btn" id="setStartBtn" type="button">קבע את המיקום הנוכחי כהתחלה</button>
+          </div>
+
+          <button class="start-return-btn" id="returnStartBtn" type="button">חזרה לנקודת ההתחלה</button>
+        </aside>
+
+        <section class="number-tool card" aria-labelledby="toolTitle">
+          <div class="tool-heading">
+            <div>
+              <span class="eyebrow">כלי חישוב</span>
+              <h2 id="toolTitle">מעלית המספרים</h2>
+            </div>
+            <p id="toolInstruction">לחצו על מספר לבחירת מיקום, או השתמשו בחצים כדי להוסיף ולהחסיר 1.</p>
+          </div>
+
+          <div class="vertical-view" id="verticalView">
+            <button class="move-btn add" id="upBtn" type="button" aria-label="הוסף 1">
+              <span class="arrow">▲</span>
+              <span class="move-label">הוסף 1</span>
+            </button>
+
+            <div class="vertical-scroll" id="verticalScroll">
+              <div class="vertical-track" id="verticalTrack"></div>
+            </div>
+
+            <button class="move-btn subtract" id="downBtn" type="button" aria-label="החסר 1">
+              <span class="move-label">החסר 1</span>
+              <span class="arrow">▼</span>
+            </button>
+          </div>
+
+          <div class="horizontal-view" id="horizontalView" hidden>
+            <div class="horizontal-controls">
+              <button class="move-btn horizontal subtract" id="leftBtn" type="button" aria-label="החסר 1">
+                <span class="arrow">◀</span>
+                <span class="move-label">החסר 1</span>
+              </button>
+              <button class="move-btn horizontal add" id="rightBtn" type="button" aria-label="הוסף 1">
+                <span class="move-label">הוסף 1</span>
+                <span class="arrow">▶</span>
+              </button>
+            </div>
+
+            <div class="horizontal-scroll" id="horizontalScroll">
+              <div class="horizontal-track" id="horizontalTrack"></div>
+            </div>
+          </div>
+
+          <div class="tool-tip">
+            <span class="tip-dot current"></span> מיקום נוכחי
+            <span class="tip-dot start"></span> נקודת התחלה
+            <span class="tip-dot zero"></span> אפס
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="helpModal" hidden>
+    <section class="modal card" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <button class="modal-close" id="closeHelpBtn" type="button" aria-label="סגירה">×</button>
+      <span class="eyebrow">איך משתמשים?</span>
+      <h2 id="helpTitle">כלי עזר לחיבור וחיסור במספרים מכוונים</h2>
+      <ol>
+        <li>בחרו טווח: 10, 15, 20 או 25 לכל כיוון.</li>
+        <li>לחצו על מספר בציר כדי לעבור אליו.</li>
+        <li>כשרוצים להתחיל תרגיל, לחצו על „קבע את המיקום הנוכחי כהתחלה”.</li>
+        <li>במצב אנכי: למעלה מוסיף 1 ולמטה מחסיר 1.</li>
+        <li>במצב אופקי: ימינה מוסיף 1 ושמאלה מחסיר 1.</li>
+        <li>כפתור התצוגה מחליף בין מעלית אנכית לציר אופקי — לא מציג את שניהם יחד.</li>
+      </ol>
+      <button class="primary-btn" id="closeHelpAction" type="button">הבנתי</button>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
