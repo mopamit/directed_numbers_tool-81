@@ -139,3 +139,70 @@ button:focus-visible{outline:3px solid rgba(231,185,118,.65);outline-offset:3px}
 @media(max-width:650px){
   .app-shell{width:min(100% - 20px,1220px);margin-top:10px}.app-header{grid-template-columns:1fr auto;grid-template-areas:"brand actions" "title title";gap:12px;padding-bottom:16px}.brand{grid-area:brand}.header-actions{grid-area:actions}.header-title{grid-area:title}.brand img{width:125px}.icon-btn{width:46px;height:46px}.controls-card{grid-template-columns:1fr;padding:16px}.orientation-group{grid-column:auto}.tool-layout{margin-top:16px}.number-tool{padding:18px}.tool-heading{display:block}.tool-heading p{text-align:right}.horizontal-controls{flex-direction:column}.move-btn.horizontal{width:100%}.horizontal-number{width:50px;flex-basis:50px}.vertical-scroll{height:56vh}.status-card{padding:18px}
 }
+
+/* Compact chrome keeps the elevator as the main workspace. */
+.app-shell{margin:8px auto 16px}
+.app-header{grid-template-columns:120px 1fr 200px;min-height:64px;gap:12px;padding:4px 0 8px}
+.brand img{width:110px;max-height:52px}
+.header-title h1{font-size:clamp(1.25rem,2.5vw,2rem)}
+.header-title p{display:none}
+.header-actions{gap:6px}
+.icon-btn{width:44px;height:44px;border-radius:12px;box-shadow:none}
+.challenges-btn{width:auto;padding:0 12px;font-weight:700}
+.tool-layout{grid-template-columns:250px minmax(0,1fr);gap:14px;margin-top:12px}
+.sidebar{display:grid;gap:12px;min-width:0}
+.controls-card{margin:0;padding:12px;display:flex;flex-direction:column;gap:12px}
+.control-group{gap:5px}
+.orientation-group .control-label,.orientation-group .control-note{display:none}
+.orientation-btn{min-height:44px;padding:6px 10px;width:100%}
+.status-card{padding:16px;position:static;display:block}
+.status-card>strong{font-size:2.7rem;text-align:right;margin:4px 0}
+.start-box{margin:12px 0 8px;padding:10px}
+#startValue{font-size:1.2rem}
+.clear-start-btn{width:100%;min-height:44px;border:1px solid var(--border);border-radius:12px;background:white;color:var(--burgundy);cursor:pointer;margin-top:6px}
+.clear-start-btn:disabled{opacity:.4;cursor:default}
+.number-tool{padding:14px;min-width:0}
+.tool-heading{margin-bottom:10px;gap:10px;align-items:center}
+.tool-heading .eyebrow{display:none}
+.tool-heading h2{font-size:1.3rem;white-space:nowrap}
+.tool-heading p{font-size:.9rem;margin:0;text-align:right;max-width:320px}
+.vertical-view{grid-template-columns:110px minmax(0,360px);justify-content:center;align-items:center;gap:12px}
+.vertical-controls{display:grid;gap:18px}
+.vertical-controls .move-btn{min-width:0;width:100%;padding:12px 6px;flex-direction:column;gap:3px}
+.move-label{font-size:1.5rem}
+.move-label small{display:block;font-size:.9rem;font-weight:600;margin-top:4px}
+.vertical-controls .add{color:var(--blue)}
+.vertical-scroll{width:100%;height:clamp(340px,calc(100dvh - 200px),780px);padding:10px 12px}
+.vertical-number.start-point::before{left:8px;font-size:.75rem}
+.vertical-number.current::after{right:8px;font-size:1.1rem}
+.tool-tip{margin-top:10px;padding:8px;font-size:.8rem;gap:7px}
+.horizontal-controls .move-label{font-size:1rem}
+.horizontal-controls{flex-direction:row}
+.move-btn.horizontal{min-width:0;padding:10px;flex:1}
+.modal{max-height:calc(100dvh - 40px);overflow:auto;padding-top:56px}
+.challenge-choices{display:grid;gap:10px}
+.challenge-choices button{padding:12px;text-align:right;line-height:1.6;border:1px solid var(--border);border-radius:12px;background:var(--soft-blue);color:var(--blue);cursor:pointer}
+.challenge-choices button:hover{border-color:var(--burgundy)}
+.active-challenge{margin-top:12px;padding:12px;line-height:1.5;background:var(--soft-mustard);border-radius:12px}
+[hidden]{display:none!important}
+@media(max-width:700px){
+ .app-header{grid-template-columns:90px 1fr;grid-template-areas:"brand actions" "title title";gap:5px;padding-bottom:8px}
+ .brand img{width:90px}.header-actions{justify-content:flex-start}.header-title h1{font-size:1.4rem}
+ .tool-layout{display:flex;flex-direction:column;gap:10px}.number-tool{order:0;width:100%}.sidebar{order:1;width:100%;grid-template-columns:1fr 1fr;gap:8px}
+ .controls-card,.status-card{padding:10px}.tool-heading{display:block}.tool-heading p{margin-top:4px;max-width:none}
+ .vertical-scroll{height:clamp(320px,calc(100dvh - 270px),650px)}
+ .vertical-view{grid-template-columns:90px minmax(0,360px);gap:10px}
+ .segmented{gap:2px;padding:3px}.set-start-btn{padding:8px 4px}
+}
+@media(max-width:360px){.sidebar{grid-template-columns:1fr}.header-title h1{font-size:1.2rem}}
+/* Embed with index.html?view=compact: elevator and its movement controls only. */
+body.compact{background:var(--bg)}
+.compact .app-shell{width:100%;margin:0}
+.compact .app-header,.compact .sidebar,.compact .tool-heading,.compact .tool-tip,.compact .active-challenge{display:none!important}
+.compact .tool-layout{display:block;margin:0}
+.compact .number-tool{padding:8px;border-radius:12px;box-shadow:none}
+.compact .vertical-view{grid-template-columns:76px minmax(0,1fr);gap:8px}
+.compact .vertical-scroll{height:calc(100dvh - 18px);min-height:220px;max-height:none}
+.compact .move-label{font-size:1.3rem}
+html{overflow-x:clip}
+.challenge-choices bdi[dir="ltr"],.active-challenge bdi[dir="ltr"]{display:block;white-space:nowrap;text-align:center;margin:4px 0}

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#17365e" />
-  <title>כלי עזר במספרים מכוונים | Prismind</title>
+  <title>חיבור וחיסור במודל המעלית | Prismind</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,11 +15,12 @@
       </div>
 
       <div class="header-title">
-        <h1>כלי עזר במספרים מכוונים</h1>
+        <h1>חיבור וחיסור במודל המעלית</h1>
         <p>בוחרים נקודת התחלה, נעים על הציר ורואים את החיבור והחיסור</p>
       </div>
 
       <div class="header-actions" aria-label="פעולות">
+        <button class="icon-btn challenges-btn" id="challengesBtn" type="button">אתגרים</button>
         <button class="icon-btn" id="resetBtn" type="button" aria-label="איפוס" title="איפוס">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10.5V20h13v-9.5M9.5 20v-6h5v6"/></svg>
         </button>
@@ -30,6 +31,8 @@
     </header>
 
     <main>
+      <section class="tool-layout">
+        <div class="sidebar">
       <section class="controls-card card" aria-label="הגדרות הכלי">
         <div class="control-group">
           <span class="control-label">טווח</span>
@@ -52,7 +55,6 @@
         </div>
       </section>
 
-      <section class="tool-layout">
         <aside class="status-card card" aria-live="polite">
           <span class="eyebrow">המיקום הנוכחי</span>
           <strong id="currentValue">0</strong>
@@ -60,13 +62,15 @@
           <div class="start-box">
             <div>
               <span class="start-label">נקודת ההתחלה</span>
-              <strong id="startValue">0</strong>
+              <strong id="startValue">לא נקבעה</strong>
             </div>
             <button class="set-start-btn" id="setStartBtn" type="button">קבע את המיקום הנוכחי כהתחלה</button>
           </div>
 
           <button class="start-return-btn" id="returnStartBtn" type="button">חזרה לנקודת ההתחלה</button>
+          <button class="clear-start-btn" id="clearStartBtn" type="button">ביטול נקודת ההתחלה</button>
         </aside>
+        </div>
 
         <section class="number-tool card" aria-labelledby="toolTitle">
           <div class="tool-heading">
@@ -78,19 +82,21 @@
           </div>
 
           <div class="vertical-view" id="verticalView">
-            <button class="move-btn add" id="upBtn" type="button" aria-label="הוסף 1">
+            <div class="vertical-controls">
+            <button class="move-btn add" id="upBtn" type="button" aria-label="עלייה, הוסף 1">
               <span class="arrow">▲</span>
-              <span class="move-label">הוסף 1</span>
+              <span class="move-label">עלייה<small>הוסף 1</small></span>
             </button>
 
+            <button class="move-btn subtract" id="downBtn" type="button" aria-label="ירידה, הורד 1">
+              <span class="move-label">ירידה<small>הורד 1</small></span>
+              <span class="arrow">▼</span>
+            </button>
+            </div>
             <div class="vertical-scroll" id="verticalScroll">
               <div class="vertical-track" id="verticalTrack"></div>
             </div>
 
-            <button class="move-btn subtract" id="downBtn" type="button" aria-label="החסר 1">
-              <span class="move-label">החסר 1</span>
-              <span class="arrow">▼</span>
-            </button>
           </div>
 
           <div class="horizontal-view" id="horizontalView" hidden>
@@ -110,6 +116,7 @@
             </div>
           </div>
 
+          <div id="activeChallenge" class="active-challenge" hidden aria-live="polite"></div>
           <div class="tool-tip">
             <span class="tip-dot current"></span> מיקום נוכחי
             <span class="tip-dot start"></span> נקודת התחלה
@@ -129,6 +136,8 @@
         <li>בחרו טווח: 10, 15, 20 או 25 לכל כיוון.</li>
         <li>לחצו על מספר בציר כדי לעבור אליו.</li>
         <li>כשרוצים להתחיל תרגיל, לחצו על „קבע את המיקום הנוכחי כהתחלה”.</li>
+        <li>„ביטול נקודת ההתחלה” מסיר את הסימון בלי לשנות את המיקום. כפתור הבית מאפס את הכלי.</li>
+        <li>בציר האופקי אפשר לגלול ידנית; הציר אינו מתמרכז מחדש בכל צעד.</li>
         <li>במצב אנכי: למעלה מוסיף 1 ולמטה מחסיר 1.</li>
         <li>במצב אופקי: ימינה מוסיף 1 ושמאלה מחסיר 1.</li>
         <li>כפתור התצוגה מחליף בין מעלית אנכית לציר אופקי — לא מציג את שניהם יחד.</li>
@@ -137,6 +146,14 @@
     </section>
   </div>
 
+  <div class="modal-backdrop" id="challengesModal" hidden>
+    <section class="modal card" role="dialog" aria-modal="true" aria-labelledby="challengesTitle">
+      <button class="modal-close" id="closeChallengesBtn" type="button" aria-label="סגירה">×</button>
+      <h2 id="challengesTitle">אתגרים</h2>
+      <p>בחרו כל אתגר שתרצו, בכל סדר. השתמשו במעלית כדי לחקור ולענות.</p>
+      <div id="challengeChoices" class="challenge-choices"></div>
+    </section>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
